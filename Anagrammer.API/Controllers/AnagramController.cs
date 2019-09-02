@@ -94,6 +94,19 @@ namespace Anagram.API.Controllers
             return NotFound();
         }
 
+        [HttpDelete("api/corpus/deletecorpus")]
+        public IActionResult DeleteCorpus()
+        {
+            var deleted = _Anagrammer.DeleteCorpus();
+
+            if (deleted > 0)
+            {
+                return NoContent();
+            }
+
+            return NotFound();
+        }
+
         #region Private Funcs
         private static List<string> RemoveAnagramsFromReturn(int maxReturns, List<string> anagrams)
         {

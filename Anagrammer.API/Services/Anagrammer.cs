@@ -15,12 +15,24 @@ namespace Anagram.API.Services
             return Corpus.Words.Contains(word);
         }
 
+        public int DeleteCorpus()
+        {
+            try
+            {
+               return Corpus.Words.RemoveAll(w => true);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+
+        }
+
         public bool DeleteWord(string word)
         {
-            if (CorpusContains(word)
+            if (CorpusContains(word))
             {
-                Corpus.Words.Remove(word);
-                return true;
+                return Corpus.Words.Remove(word);
             }
 
             return false;

@@ -12,5 +12,7 @@ namespace Anagram.API.Services
         bool CorpusContains(string word);
 
         bool DeleteWord(string word);
+
+        int DeleteCorpus();
     }
 }
