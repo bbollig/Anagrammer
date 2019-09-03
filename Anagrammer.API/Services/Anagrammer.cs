@@ -10,7 +10,18 @@ namespace Anagram.API.Services
 {
     public class Anagrammer : IAnagrammer
     {
-        public Corpus Corpus { get; set; } = new Corpus();
+        public Corpus Corpus { get; set; }
+
+        public Anagrammer()
+        {
+            var path = "Dictionary.txt";
+            Corpus = new Corpus(path);
+        }
+
+        public Anagrammer(string corpusPath)
+        {
+            Corpus = new Corpus(corpusPath);
+        }
 
         public bool CorpusContains(string word)
         {

@@ -10,16 +10,16 @@ namespace Anagram.API.Classes
     {
         public List<string> Words { get; set; }
 
-        public Corpus()
+        public Corpus(string path)
         {
-            InitDictionary();
+            InitDictionary(path);
         }
 
-        private void InitDictionary()
+        private void InitDictionary(string filepath)
         {
-            if (File.Exists($"Dictionary.txt"))
+            if (File.Exists(filepath))
             {
-                Words = File.ReadAllLines("Dictionary.txt").ToList();
+                Words = File.ReadAllLines(filepath).ToList();
             }
         }
 
