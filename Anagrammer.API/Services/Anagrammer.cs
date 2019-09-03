@@ -19,7 +19,7 @@ namespace Anagram.API.Services
         {
             try
             {
-               return Corpus.Words.RemoveAll(w => true);
+                return Corpus.Words.RemoveAll(w => true);
             }
             catch (Exception)
             {
@@ -71,6 +71,19 @@ namespace Anagram.API.Services
             }
 
             return anagrams;
+        }
+
+        public void InsertWords(string words)
+        {
+            List<string> additions = words.Split(',').ToList();
+
+            foreach (var word in additions)
+            {
+                if (!CorpusContains(word))
+                {
+                    Corpus.Words.Add(word);
+                }
+            }
         }
 
         //Abstracting our sorting logic away since our input and

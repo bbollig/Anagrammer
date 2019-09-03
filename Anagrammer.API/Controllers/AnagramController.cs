@@ -65,15 +65,14 @@ namespace Anagram.API.Controllers
         [HttpPost("api/corpus/insert/{word}")]
         public IActionResult Insert([FromBody] string words)
         {
-            //if (words == null)
-            //{
-            //    return BadRequest();
-            //}
+            if (words == null)
+            {
+                return BadRequest();
+            }
 
-            //Words words = System.Runtime.Serialization.Json.Parse()
+            _Anagrammer.InsertWords(words);
 
-
-            return CreatedAtRoute("", new object());
+            return Created("", new object());
         }
 
         [HttpDelete("api/corpus/delete/{word}")]
