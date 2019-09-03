@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Anagram.API.Classes;
 using Anagram.API.Services;
+using Newtonsoft.Json.Linq;
 
 namespace Anagram.API.Controllers
 {
@@ -62,8 +63,8 @@ namespace Anagram.API.Controllers
         }
 
 
-        [HttpPost("api/corpus/insert/{word}")]
-        public IActionResult Insert([FromBody] string words)
+        [HttpPost("api/corpus/insertwords")]
+        public IActionResult InsertWords([FromBody] JArray words)
         {
             if (words == null)
             {
@@ -76,7 +77,7 @@ namespace Anagram.API.Controllers
         }
 
         [HttpDelete("api/corpus/delete/{word}")]
-        public IActionResult Delete(string word)
+        public IActionResult DeleteWord(string word)
         {
             if (word == null)
             {
@@ -97,6 +98,24 @@ namespace Anagram.API.Controllers
         public IActionResult DeleteCorpus()
         {
             var deleted = _Anagrammer.DeleteCorpus();
+
+            if (deleted > 0)
+            {
+                return NoContent();
+            }
+
+            return NotFound();
+        }
+
+        [HttpDelete("api/corpus/deletewords/{word}")]
+        public IActionResult DeleteWordAndAnagrams(string word)
+        {
+            if (word == null)
+            {
+                return BadRequest();
+            }
+
+            var deleted = _Anagrammer.DeleteWordAndAnagrams(word);
 
             if (deleted > 0)
             {

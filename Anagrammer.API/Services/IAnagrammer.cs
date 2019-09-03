@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ namespace Anagram.API.Services
 {
     public interface IAnagrammer
     {
-        List<string> GetAnagrams(string word);
+        List<string> GetAnagrams(string word, bool includeBaseWord =  false);
 
         bool CorpusContains(string word);
 
@@ -15,6 +16,8 @@ namespace Anagram.API.Services
 
         bool DeleteWord(string word);
 
-        void InsertWords(string words);
+        int DeleteWordAndAnagrams(string word);
+
+        void InsertWords(JArray words);
     }
 }
