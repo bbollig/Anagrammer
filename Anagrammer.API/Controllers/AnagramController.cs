@@ -125,6 +125,12 @@ namespace Anagram.API.Controllers
             return NotFound();
         }
 
+        [HttpGet("api/corpus/getstats")]
+        public IActionResult GetStats()
+        {
+            return Ok(_Anagrammer.GetStats());
+        }
+
         #region Private Funcs
         private static List<string> RemoveAnagramsFromReturn(int maxReturns, List<string> anagrams)
         {
