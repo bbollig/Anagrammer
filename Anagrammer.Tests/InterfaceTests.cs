@@ -11,6 +11,8 @@ namespace Anagrammer.Tests
         IAnagrammer _Anagrammer;
         List<string> _Compare;
         List<string> _Compare2;
+        List<string> _Compare3;
+
 
         public InterfaceTests()
         {
@@ -25,20 +27,29 @@ namespace Anagrammer.Tests
             //Using this to compare results retrieved from our smallDictionary
             _Compare = new List<string>()
             {
-                "ared",
+                "Ared",
                 "daer",
                 "dare",
                 "read"
             };
+
+            //This one includes 'dear' and is used to compare for GetAnagramsIncludeBaseWord
             _Compare2 = new List<string>()
             {
-                "ared",
+                "Ared",
                 "daer",
                 "dare",
                 "dear",
                 "read"
             };
 
+            //Using this to compare with 'Ared' removed for being a proper noun
+            _Compare3 = new List<string>()
+            {
+                "daer",
+                "dare",
+                "read"
+            };
         }
         #region Get Tests
         [TestMethod]
@@ -55,6 +66,15 @@ namespace Anagrammer.Tests
             var results = _Anagrammer.GetAnagrams("dear", true);
 
             CollectionAssert.AreEqual(_Compare2, results);
+        }
+
+        [TestMethod]
+        public void GetAnagramsWithoutProperNouns()
+        {
+            var results = _Anagrammer.GetAnagrams("dear", false, true);
+
+            CollectionAssert.AreEqual(_Compare, results);
+
         }
 
         [TestMethod]
