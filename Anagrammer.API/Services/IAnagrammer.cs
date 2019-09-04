@@ -8,6 +8,8 @@ namespace Anagram.API.Services
 {
     public interface IAnagrammer
     {
+        int CorpusCount { get; }
+
         List<string> GetAnagrams(string word, bool includeBaseWord =  false);
 
         bool CorpusContains(string word);

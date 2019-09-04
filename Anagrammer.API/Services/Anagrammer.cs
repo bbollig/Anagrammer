@@ -10,7 +10,12 @@ namespace Anagram.API.Services
 {
     public class Anagrammer : IAnagrammer
     {
-        public Corpus Corpus { get; set; }
+        private Corpus Corpus { get; set; }
+
+        public int CorpusCount
+        {
+            get { return Corpus.Words.Count; }
+        }
 
         public Anagrammer()
         {
@@ -38,7 +43,6 @@ namespace Anagram.API.Services
             {
                 return 0;
             }
-
         }
 
         public bool DeleteWord(string word)
