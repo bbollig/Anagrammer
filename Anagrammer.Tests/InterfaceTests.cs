@@ -193,7 +193,12 @@ namespace Anagrammer.Tests
         [TestMethod]
         public void DeleteCorpus()
         {
-            //_Anagrammer.
+            //get count of corpus items
+            int countBefore = _Anagrammer.CorpusCount;
+            _Anagrammer.DeleteCorpus();
+            int countAfter = _Anagrammer.CorpusCount;
+
+            Assert.AreNotEqual(countBefore, countAfter);
         }
         #endregion
 
