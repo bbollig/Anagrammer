@@ -107,7 +107,7 @@ namespace Anagram.API.Controllers
             return NotFound();
         }
 
-        [HttpDelete("api/corpus/deletewords/{word}")]
+        [HttpDelete("api/anagrams/deleteanagrams/{word}")]
         public IActionResult DeleteWordAndAnagrams(string word)
         {
             if (word == null)
