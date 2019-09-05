@@ -1,9 +1,9 @@
 ## Anagrammer
 
 ### Table of Contents
-1. [Overview & Discussion](https://github.com/bbollig/Anagrammer/blob/master/README.md#overview--discussion)
-2. [Up and Running Guide](https://github.com/bbollig/Anagrammer/blob/master/README.md#up-and-running-guide)
-4. [Final Thoughts](https://github.com/bbollig/Anagrammer/blob/master/README.md#final-thoughts)
+1. [Overview & Discussion](/README.md#overview--discussion)
+2. [Up and Running Guide](/README.md#up-and-running-guide)
+4. [Final Thoughts](/README.md#final-thoughts)
 
 ---
 ### Overview & Discussion
