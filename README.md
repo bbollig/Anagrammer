@@ -1,9 +1,9 @@
 ## Anagrammer
 
 ### Table of Contents
-1. Overview & Discussion
-2. Up and Running Guide
-4. Suggested Test Path
+1. [Overview & Discussion](https://github.com/bbollig/Anagrammer/blob/master/README.md#overview--discussion)
+2. [Up and Running Guide](https://github.com/bbollig/Anagrammer/blob/master/README.md#up-and-running-guide)
+4. [Suggested Test Path]()
 
 ---
 ### Overview & Discussion
