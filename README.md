@@ -3,19 +3,20 @@
 ### Table of Contents
 1. [Overview & Discussion](/README.md#overview--discussion)
 2. [Up and Running Guide](/README.md#up-and-running-guide)
+3. [Testing with Postman](/README.md#testing-with-postman)
 4. [Final Thoughts](/README.md#final-thoughts)
 
 ---
 ### Overview & Discussion
 
 #### Completed Endpoints
-- `POST /words.json`: Takes a JSON array of English-language words and adds them to the corpus (data store).
-- `GET /anagrams/:word.json`:
+- `POST api/corpus/insertwords`: Takes a JSON array of English-language words and adds them to the corpus (data store).
+- `GET api/anagrams/{word}`:
   - Returns a JSON array of English-language words that are anagrams of the word passed in the URL.
   - This endpoint should support an optional query param that indicates the maximum number of results to return.
   - *BONUS FROM OPTIONAL LIST:* Respect a query param for whether or not to include proper nouns in the list of anagrams
-- `DELETE /words/:word.json`: Deletes a single word from the data store.
-- `DELETE /words.json`: Deletes all contents of the data store.
+- `DELETE api/corpus/delete/{word}`: Deletes a single word from the data store.
+- `DELETE api/corpus/deletecorpus`: Deletes all contents of the data store.
 
 #### Completed OPTIONAL Endpoints
 - Endpoint to check if the Corpus already contains a word.
@@ -34,7 +35,7 @@ Now onto an overview of the API project structure. Inside the Anagram.API folder
 * *dictionary.txt* - is the file provided for the exercise. I chose to import it on startup, meaning that when first firing up the API, you will not need to insert any words to begin testing out endpoints. And as I write this, I realize that I forgot to finish the functionality to save back to this file to persist changes to the dictionary across sessions. I think it will leave it for a future feature, at this point. So go ahead and delete the entire Corpus when testing. It will be there when you restart the service.
 * *Controllers folder* - Where the AnagramsController file lives, that exposes all the endpoints of the API
   + *AnagramController* - Gets the Anagrammer class injected in it's constructor. All endpoints are written with a "bouncer" or "blocker" pattern, to filter out bad or invalid content before passing it on to the Anagrammer class. Exposes Endpoints:
-    - **GetAnagrams** (HttpGet("api/anagrams/{word}")) Takes an string for parameter and returns a number of anagrams for that word. Optional parameters include 'limit' to limit the size of the collection returned and returnProperNouns to configure whether or not you want words starting with a capital letter included in the return collection. Sucess Returns 200 Ok
+    - **GetAnagrams** (HttpGet("api/anagrams/{word}")) Takes an string for parameter and returns a number of anagrams for that word. Optional parameters include 'limit' to limit the size of the collection returned and returnProperNouns to configure whether or not you want words starting with a capital letter included in the return collection. Success Returns 200 Ok
     - **Contains** (HttpGet("api/corpus/contains/{word}")) Takes a string parameter and returns true/false if the Corpus already contains it. Not a requirement in the project parameters, but I found it was nice functionality to have while developing and decided to expose it. Found returns 200 Ok response, not found returns 404 Not Found
     - **InsertWords** (HttpPost("api/corpus/insertwords")) Takes a Json Array of words and inserts them into the Corpus *if they do not alread exist*. Returns 201 Created Response.
     - **DeleteWord** (HttpDelete("api/corpus/delete/{word}")) Takes a string parameter and deletes the word if the Corpus contains it. On success, returns 204 No Content, on failure returns 404 Not Found.
@@ -67,7 +68,28 @@ or here for Windows:
   * Now that the terminal is in the correct location(the one with Anagram.API.csproj file) you can start the service by typing `dotnet run --urls http://0.0.0.0:3000/` This command starts the API service and ensures that it is listening over HTTP localhost on port 3000.
 4. Now we can switch to Postman. Once it is started, find and click the Import button in the top left menu area next to the Big Orange New button. Find the Anagram.API.postman_collection.json file, located in the top level Anagrammer folder, alongside folders for Anagrammer.API, Anagrammer.Tests and the README.md file, and import it. Now you will see all the tests for all the endpoints ready to go in the left side-bar, under Anagram.API folder. You will see the tests are grouped by Http type; so there are folders for GetTests, PostTests and DeleteTests. 
 
+### Testing With Postman
+
 Now with the service running and Postman ready to go, you can start testing. You can click on any of the tests under the folder, such as GetAnagrams. You will see in the main window, the URL it will test against `http://localhost:3000/api/anagrams/dear` and the HTTP method it will use `GET`. To the right you will see a blue SEND button. The URL shows that it will point at localhost, port 3000 and the final word, "dear" is the word it is going to search for anagrams for. Clicking send should return a 200 OK status and a Json array of anagrams for the word dear. You can change "dear" to anything you want from here.
+
+For the rest, I'll write a quick list on what each one does. Some of these are noted functionality at the top of the discussion section, some of these are used to test edge cases:
+* GetTests
+  * *GetAnagrams* - Tests the GetAnagrams endpoint with good information
+  * *GetAnagramsWithMaxReturn* - Tests GetAnagrams with an optional query parameter, 'limit' to ensure that the API doesn't return more than what you send in the query string.
+  * *GetAnagramsWithMaxZeroReturn* - Same test as the previous but sends zero instead. Wrote this one to test and edge case.
+  * *GetAnagramsWithoutProperNouns* - Tests GetAnagrams with another optional query parameter, 'returnProperNouns'. This defaults to true on the API and when left blank or not inlcuded, will return strings with the first letter being uppercase. Setting it to false in the query string will tell the API to disinclude proper nouns in the return set.
+  * *GetStats* - Returns count, min letters, max letters, average letter count and median letter count.
+  * *TestDoesContain* - This is to test whether or not the Corpus already contains a word. This test should return true without changing the word used in the URL.
+  * *TestDoesNotContain* - Like above, only using a word known to not be in the Corpus on startup. Should return false as written.
+  * *CheckSetForAnagramsTrue* - Tests CheckForAnagrams endpoint by passing a JSON array of words and seeing if they are anagrams of each other. The array passed through in the Body of the request are indeed anagrams in this test, so it should return true.
+  * *CheckSetForAnagramsFalse* - Same as above, except the words included in the body are not anagrams. Should return false.
+  * *CheckSetForAnagramsDifferentLengths* - Same as above but the JSON array of words passed in the body are all different lengths. Wrote this one to be an early detector of anagrams that can return false early before having to actually interact with the collection much.
+* PostTests
+  * *PostWord* - Tests the Insert functionality by passing a JSON array of words and adding them to the Corpus. I suggest testing this after testing *DeleteWordAndAnagrams* or *DeleteCorpus*. 
+*DeleteTests
+  * *DeleteWord* - Deletes a single word from the Corpus. Can test if it worked using *TestDoesContain* after running this.
+  * *DeleteWordAndAnagrams* Deletes the word passed as parameter and all its anagrams. Can test if it worked using *TestDoesContain* after running this.
+  * *DeleteCorpus* - Deletes all words from the Corpus. Can test if it worked using *TestDoesContain* after running this.
 
 ### Final Thoughts
 
