@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anagrammer.Tests", "Anagram
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FDD081B0-E21F-4DD7-91FE-9D4A558E3FCF}"
 	ProjectSection(SolutionItems) = preProject
+		Anagram.API.postman_collection.json = Anagram.API.postman_collection.json
 		README.md = README.md
 	EndProjectSection
 EndProject

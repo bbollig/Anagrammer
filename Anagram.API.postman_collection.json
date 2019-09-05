@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "7a268ff7-7b80-40c8-9044-f6d84aee9d3b",
+		"name": "Anagram.API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetTests",
+			"item": [
+				{
+					"name": "GetAnagrams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/anagrams/dear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"anagrams",
+								"dear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/corpus/getstats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"corpus",
+								"getstats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAnagramsWithMaxReturn",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/anagrams/dear?limit=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"anagrams",
+								"dear"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAnagramsWithoutProperNouns",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/anagrams/dear?returnProperNouns=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"anagrams",
+								"dear"
+							],
+							"query": [
+								{
+									"key": "returnProperNouns",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAnagramsWithMaxZeroReturn",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/anagrams/dear?limit=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"anagrams",
+								"dear"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TestDoesNotContain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/corpus/contains/supercalafragilisticexpealadocious",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"corpus",
+								"contains",
+								"supercalafragilisticexpealadocious"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TestDoesContain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/corpus/contains/dear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"corpus",
+								"contains",
+								"dear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckSetForAnagramsTrue",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    \"ared\",\r\n    \"daer\",\r\n    \"dare\"\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/anagrams/checkforanagrams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"anagrams",
+								"checkforanagrams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckSetForAnagramsFalse",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    \"rad\",\r\n    \"ear\",\r\n    \"mem\"\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/anagrams/checkforanagrams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"anagrams",
+								"checkforanagrams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckSetForAnagramsDifferentLengths",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    \"periwinkle\",\r\n    \"might\",\r\n    \"destroy\"\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/anagrams/checkforanagrams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"anagrams",
+								"checkforanagrams"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PostTests",
+			"item": [
+				{
+					"name": "PostWord",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    \"ared\",\r\n    \"daer\",\r\n    \"dare\",\r\n    \"dear\",\r\n    \"read\"\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/corpus/insertwords",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"corpus",
+								"insertwords"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DeleteTests",
+			"item": [
+				{
+					"name": "DeleteWord",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/corpus/delete/dear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"corpus",
+								"delete",
+								"dear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteWordAndAnagrams",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/anagrams/deleteanagrams/dear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"anagrams",
+								"deleteanagrams",
+								"dear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCorpus",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/corpus/deletecorpus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"corpus",
+								"deletecorpus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
