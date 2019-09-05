@@ -9,23 +9,22 @@ namespace Anagrammer.Tests
     public class InterfaceTests
     {
         IAnagrammer _Anagrammer;
-        List<string> _Compare;
-        List<string> _Compare2;
-        List<string> _Compare3;
-
 
         public InterfaceTests()
         {
             _Anagrammer = new Anagram.API.Services.Anagrammer($"smallDictionary.txt");
             //smallDictionary has just 5 items in its set: 
-            //ared
+            //Ared
             //daer
             //dare
             //dear
             //read
-
-            //Using this to compare results retrieved from our smallDictionary
-            _Compare = new List<string>()
+        }
+        #region Get Tests
+        [TestMethod]
+        public void GetAnagrams()
+        {
+            List<string> compare = new List<string>()
             {
                 "Ared",
                 "daer",
@@ -33,8 +32,15 @@ namespace Anagrammer.Tests
                 "read"
             };
 
-            //This one includes 'dear' and is used to compare for GetAnagramsIncludeBaseWord
-            _Compare2 = new List<string>()
+            var results = _Anagrammer.GetAnagrams("dear");
+
+            CollectionAssert.AreEqual(compare, results);
+        }
+
+        [TestMethod]
+        public void GetAnagramsIncludeBaseWord()
+        {
+            List<string> compare = new List<string>()
             {
                 "Ared",
                 "daer",
@@ -43,38 +49,9 @@ namespace Anagrammer.Tests
                 "read"
             };
 
-            //Using this to compare with 'Ared' removed for being a proper noun
-            _Compare3 = new List<string>()
-            {
-                "daer",
-                "dare",
-                "read"
-            };
-        }
-        #region Get Tests
-        [TestMethod]
-        public void GetAnagrams()
-        {
-            var results = _Anagrammer.GetAnagrams("dear");
-
-            CollectionAssert.AreEqual(_Compare, results);
-        }
-
-        [TestMethod]
-        public void GetAnagramsIncludeBaseWord()
-        {
             var results = _Anagrammer.GetAnagrams("dear", true);
 
-            CollectionAssert.AreEqual(_Compare2, results);
-        }
-
-        [TestMethod]
-        public void GetAnagramsWithoutProperNouns()
-        {
-            var results = _Anagrammer.GetAnagrams("dear", false, true);
-
-            CollectionAssert.AreEqual(_Compare, results);
-
+            CollectionAssert.AreEqual(compare, results);
         }
 
         [TestMethod]
@@ -87,6 +64,36 @@ namespace Anagrammer.Tests
             //Test word we know corpus doesn't have
             var doesNotContain = _Anagrammer.CorpusContains("periwinkle");
             Assert.AreEqual(false, doesNotContain);
+        }
+
+
+        [TestMethod]
+        public void TestGetStats()
+        {
+            //test stats from smallDictionary
+            Dictionary<string, double> compare = new Dictionary<string, double>();
+            compare.Add("Count", 5);
+            compare.Add("Min", 4);
+            compare.Add("Max", 4);
+            compare.Add("Average", 4);
+            compare.Add("Median", 4);
+
+            var stats = _Anagrammer.GetStats();
+            CollectionAssert.AreEqual(compare, stats);
+
+            //Add more words and test to see if it changes
+            List<string> words = new List<string>()
+            {
+                "periwinkle",
+                "might",
+                "destroy"
+            };
+
+            JArray inserts = JArray.FromObject(words);
+            _Anagrammer.InsertWords(inserts);
+
+            var newStats = _Anagrammer.GetStats();
+            CollectionAssert.AreNotEqual(compare, newStats);
         }
         #endregion
 
@@ -168,7 +175,7 @@ namespace Anagrammer.Tests
         [TestMethod]
         public void DeleteWordAndAnagrams()
         {
-            //Test words we know corpus doesn't have
+            //Test anagram words we know corpus doesn't have
             List<string> words = new List<string>()
             {
                 "angel",
