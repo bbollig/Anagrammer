@@ -22,7 +22,7 @@ namespace Anagram.API.Controllers
 
         // GET api/values
         [HttpGet("api/anagrams/{word}")]
-        public ActionResult<List<string>> Get(string word, int limit = -1)
+        public ActionResult<List<string>> GetAnagrams(string word, int limit = -1, bool returnProperNouns = true)
         {
             if (word == null)
             {
@@ -36,6 +36,18 @@ namespace Anagram.API.Controllers
                 if (limit >= 0)
                 {
                     return Ok(RemoveAnagramsFromReturn(limit, anagrams));
+                }
+
+                //if we do not want proper nouns
+                if (!returnProperNouns)
+                {
+                    for (int i = 0; i < anagrams.Count(); i++)
+                    {
+                        if (char.IsUpper(anagrams[i][0]))
+                        {
+                            anagrams.Remove(anagrams[i]);
+                        }
+                    }
                 }
 
                 return Ok(anagrams);
@@ -129,6 +141,17 @@ namespace Anagram.API.Controllers
         public IActionResult GetStats()
         {
             return Ok(_Anagrammer.GetStats());
+        }
+
+        [HttpGet("api/anagrams/checkforanagrams/{words}")]
+        public IActionResult CheckForAnagrams([FromBody] JArray words)
+        {
+            if (words == null || words.Count() <= 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(_Anagrammer.CheckSetForAnagrams(words));
         }
 
         #region Private Funcs
