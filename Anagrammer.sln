@@ -5,7 +5,12 @@ VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anagram.API", "Anagrammer.API\Anagram.API.csproj", "{978DC3F0-0444-4642-ADEA-C169C1137A17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anagrammer.Tests", "Anagrammer.Tests\Anagrammer.Tests.csproj", "{3908937F-B7AC-4A1D-BA98-6A6B841302BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anagrammer.Tests", "Anagrammer.Tests\Anagrammer.Tests.csproj", "{3908937F-B7AC-4A1D-BA98-6A6B841302BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FDD081B0-E21F-4DD7-91FE-9D4A558E3FCF}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
