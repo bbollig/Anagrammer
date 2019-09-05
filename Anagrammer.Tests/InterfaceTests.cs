@@ -20,6 +20,7 @@ namespace Anagrammer.Tests
             //dear
             //read
         }
+
         #region Get Tests
         [TestMethod]
         public void GetAnagrams()
@@ -94,6 +95,44 @@ namespace Anagrammer.Tests
 
             var newStats = _Anagrammer.GetStats();
             CollectionAssert.AreNotEqual(compare, newStats);
+        }
+
+        [TestMethod]
+        public void TestBadListForAnagrams()
+        {
+            //Test words of different lengths
+            JArray words = new JArray()
+            {
+                "periwinkle",
+                "might",
+                "destroy"
+            };
+
+            Assert.IsFalse(_Anagrammer.CheckSetForAnagrams(words));
+
+            //Test words of same length that aren't anagrams
+            JArray newWords = new JArray()
+            {
+                "rad",
+                "ear",
+                "mem"
+            };
+
+            Assert.IsFalse(_Anagrammer.CheckSetForAnagrams(newWords));
+        }
+
+        [TestMethod]
+        public void TestGoodListForAnagrams()
+        {
+            //Test words of different lengths
+            JArray words = new JArray()
+            {
+                "dear",
+                "read",
+                "ared"
+            };
+
+            Assert.IsTrue(_Anagrammer.CheckSetForAnagrams(words));
         }
         #endregion
 
