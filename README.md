@@ -3,7 +3,7 @@
 ### Table of Contents
 1. [Overview & Discussion](https://github.com/bbollig/Anagrammer/blob/master/README.md#overview--discussion)
 2. [Up and Running Guide](https://github.com/bbollig/Anagrammer/blob/master/README.md#up-and-running-guide)
-4. [Suggested Test Path]()
+4. [Suggested Test Path](https://github.com/bbollig/Anagrammer/blob/master/README.md#suggested-test-path)
 
 ---
 ### Overview & Discussion
@@ -63,6 +63,13 @@ or here for Windows:
   * Now that the workspace folder is open, at the top menu of VS Code a little ways down from File you will see Terminal. Click Terminal -> Run New Terminal. You will see the Terminal screen pop up at the bottom of the window.
   * On fresh Terminal, you will likely need to move into the Anagram.API folder. You can do so by typing `cd Anagrammer.API`. 
   * Now that the terminal is in the correct location(the one with Anagram.API.csproj file) you can start the service by typing `dotnet run --urls http://0.0.0.0:3000/` This command starts the API service and ensures that it is listening over HTTP localhost on port 3000.
-4. 
+4. Now we can switch to Postman. Once it is started, find and click the Import button in the top left menu area next to the Big Orange New button. Find the Anagram.API.postman_collection.json file, located in the top level Anagrammer folder, alongside folders for Anagrammer.API, Anagrammer.Tests and the README.md file, and import it. Now you will see all the tests for all the endpoints ready to go in the left side-bar, under Anagram.API folder. You will see the tests are grouped by Http type; so there are folders for GetTests, PostTests and DeleteTests. 
+
+Now with the service running and Postman ready to go, you can start testing.
+
+
+
+
+### Suggested Test Path
 
 
