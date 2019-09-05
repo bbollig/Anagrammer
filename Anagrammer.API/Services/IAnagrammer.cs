@@ -10,7 +10,7 @@ namespace Anagram.API.Services
     {
         int CorpusCount { get; }
 
-        List<string> GetAnagrams(string word, bool includeBaseWord =  false, bool returnProperNouns = true);
+        List<string> GetAnagrams(string word, bool includeBaseWord =  false);
 
         Dictionary<string, double> GetStats();
 
@@ -23,5 +23,7 @@ namespace Anagram.API.Services
         int DeleteWordAndAnagrams(string word);
 
         void InsertWords(JArray words);
+
+        bool CheckSetForAnagrams(JArray words);
     }
 }
