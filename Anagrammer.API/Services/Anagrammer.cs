@@ -17,12 +17,16 @@ namespace Anagram.API.Services
             get { return Corpus.Words.Count; }
         }
 
+        //default constructor uses Dictionary.txt in the root of the
+        //project
         public Anagrammer()
         {
             var path = "Dictionary.txt";
             Corpus = new Corpus(path);
         }
 
+        //second constructor for injecting entirely different dictionary
+        //file, used for Unit Test project.
         public Anagrammer(string corpusPath)
         {
             Corpus = new Corpus(corpusPath);
