@@ -24,7 +24,7 @@
 - Endpoint that returns a count of words in the corpus and min/max/median/average word length
 - Endpoint that takes a set of words and returns whether or not they are all anagrams of each other
 
-I chose to write the API in the latest version of dotnet core, 2.2. I chose dotnet core because 1- I have a strong background in .net and only windows machine to develop on and 2- I know that Ibotta is Mac organization, so the cross-platform capability of dotnet core was a must have.
+I chose to write the API in the latest version of dotnet core, 2.2. I chose dotnet core because 1- I have a strong background in .net and only a windows machine to develop on and 2- I know that Ibotta is Mac organization, so the cross-platform capability of dotnet core was a must have.
 
 The solution consists of two projects, the first being the API itself (Anagram.API) and the second a Unit Test project that I created to help me in my developement process (Anagrammer.Tests). I should note here, the Test project focuses on the heavy lifter class of the API, where most of the functonality is located and ignores the  API Controller that exposes the endpoints. I left the endpoint testing to a tool called Postman that I find very useful for working with APIs. I chose to use Postman for this because it allows me the ability to export/import entire test suites for sharing. You will find the file to import these tests alongside the projectfolders for the API and Unit Tests, as well as this README.md (more on Postman and importing later).
 
