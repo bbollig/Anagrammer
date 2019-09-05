@@ -143,7 +143,7 @@ namespace Anagram.API.Controllers
             return Ok(_Anagrammer.GetStats());
         }
 
-        [HttpGet("api/anagrams/checkforanagrams/{words}")]
+        [HttpGet("api/anagrams/checkforanagrams")]
         public IActionResult CheckForAnagrams([FromBody] JArray words)
         {
             if (words == null || words.Count() <= 0)
