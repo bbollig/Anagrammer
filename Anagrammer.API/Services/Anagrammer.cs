@@ -76,12 +76,14 @@ namespace Anagram.API.Services
         /// Gets anagrams of parameter word. Optional second paramater includeBaseWord
         /// is to allow DeleteWordAndAnagrams function the ability to get a list of
         /// anagrams that include the base word. Will not expose this second parameter to the API
-        /// outside of previously mentioned delete function.
+        /// outside of previously mentioned delete function. Optional third parameter to exclude
+        /// proper nouns (words that start with an upper case letter) form the return set.
         /// </summary>
         /// <param name="word"></param>
         /// <param name="includeBaseWord"></param>
+        /// /// <param name="returnProperNouns"></param>
         /// <returns></returns>
-        public List<string> GetAnagrams(string word, bool includeBaseWord = false, bool returnProperNouns = true)
+        public List<string> GetAnagrams(string word, bool includeBaseWord = false)
         {
             //one array to house potentials and one to return
             //actual anagrams
@@ -114,24 +116,11 @@ namespace Anagram.API.Services
                 anagrams.Remove(word);
             }
 
-            //if we do not want proper nouns
-            if (!returnProperNouns)
-            {
-                foreach (var anagram in anagrams)
-                {
-                    if (char.IsUpper(anagram[0]))
-                    {
-                        anagrams.Remove(anagram);
-                    }
-                }
-            }
-
             return anagrams;
         }
 
         public void InsertWords(JArray words)
         {
-
             foreach (var word in words)
             {
                 if (!CorpusContains(word.ToString()))
@@ -141,19 +130,20 @@ namespace Anagram.API.Services
             }
         }
 
-        //Abstracting our sorting logic away since our input and
-        //candidates will both be using it at different stages
-        private string SortWord(string word)
-        {
-            var wordAsArray = word.ToCharArray();
-            Array.Sort(wordAsArray);
-
-            return new string(wordAsArray);
-        }
-
         public Dictionary<string, double> GetStats()
         {
             Dictionary<string, double> stats = new Dictionary<string, double>();
+
+            if (CorpusCount == 0)
+            {
+                stats.Add("Count", CorpusCount);
+                stats.Add("Min", 0);
+                stats.Add("Max", 0);
+                stats.Add("Average", 0);
+                stats.Add("Median", 0);
+
+                return stats;
+            }
 
             stats.Add("Count", CorpusCount);
 
@@ -197,6 +187,48 @@ namespace Anagram.API.Services
             stats.Add("Median", median);
 
             return stats;
+        }
+        public bool CheckSetForAnagrams(JArray words)
+        {
+            //change to list so we can use linq
+            List<string> listWords = words.ToObject<List<string>>();
+
+            //check if any of the words lengths don't match the top word
+            if (listWords.Any(w => w.Length != listWords[0].Length))
+            {
+                //if the lengths don't match, they can't be anagrams
+                return false;
+            }
+
+            //sort all the words in the lists
+            for (int i = 0; i < listWords.Count(); i++)
+            {
+                listWords[i] = SortWord(listWords[i]);
+            }
+
+            var firstWord = listWords[0].ToString();
+
+            //check the rest for equality with the first
+            for (int i = 1; i < listWords.Count() - 1; i++)
+            {
+                if (listWords[i] != firstWord)
+                {
+                    //return at the earliest instance of inequality
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        //Abstracting our sorting logic away since our input and
+        //candidates will both be using it in multiple calls
+        private string SortWord(string word)
+        {
+            var wordAsArray = word.ToCharArray();
+            Array.Sort(wordAsArray);
+
+            return new string(wordAsArray);
         }
     }
 }
