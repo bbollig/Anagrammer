@@ -75,4 +75,4 @@ Currently the app has no real data store. I could have created a simple database
 
 If the app did include data-permanence, like if deleting the entire Corpus did, in fact, irretrievably delete all the contents of the Corpus, I would certainly want some sort of User-Authentication and Authorization service. 
 
-
+[Back to Top](/README.md#Anagrammer)
