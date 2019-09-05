@@ -3,7 +3,7 @@
 ### Table of Contents
 1. [Overview & Discussion](https://github.com/bbollig/Anagrammer/blob/master/README.md#overview--discussion)
 2. [Up and Running Guide](https://github.com/bbollig/Anagrammer/blob/master/README.md#up-and-running-guide)
-4. [Suggested Test Path](https://github.com/bbollig/Anagrammer/blob/master/README.md#suggested-test-path)
+4. [Final Thoughts](https://github.com/bbollig/Anagrammer/blob/master/README.md#final-thoughts)
 
 ---
 ### Overview & Discussion
@@ -49,7 +49,9 @@ Now onto an overview of the API project structure. Inside the Anagram.API folder
   
 ### Up and Running Guide
 
-Since this is cross-platform, I've done some work to ensure that the steps to set up are as close as possible across both Mac and Windows environments. If there is a difference, I will note so at the appropriate time. 
+Since this is cross-platform, I've done some work to ensure that the steps to set up are as close as possible across both Mac and Windows environments, which is why, for instance, this guide uses VS Code instead of Visual Studio 2017 or Visual Studio for Mac. I found that the steps and pitfalls in setup (and I did test on both Windows and Mac machines) were too different to make writing this guide in an acceptable timeframe feasible. If there is a difference, I will note so at the appropriate time.
+
+**Another thing to note, the Unit Tests in Anagrammer.Tests will not be able to be run from VS Code without some additional setup, not included in these steps. If you have access to VS for Mac or VS 2017 or up on Windows, you will should be able to run the Unit Tests.**
 
 1. First, you will need to download and install VS Code and Postman, if you don't have them already.
 [https://code.visualstudio.com/download]
@@ -65,11 +67,12 @@ or here for Windows:
   * Now that the terminal is in the correct location(the one with Anagram.API.csproj file) you can start the service by typing `dotnet run --urls http://0.0.0.0:3000/` This command starts the API service and ensures that it is listening over HTTP localhost on port 3000.
 4. Now we can switch to Postman. Once it is started, find and click the Import button in the top left menu area next to the Big Orange New button. Find the Anagram.API.postman_collection.json file, located in the top level Anagrammer folder, alongside folders for Anagrammer.API, Anagrammer.Tests and the README.md file, and import it. Now you will see all the tests for all the endpoints ready to go in the left side-bar, under Anagram.API folder. You will see the tests are grouped by Http type; so there are folders for GetTests, PostTests and DeleteTests. 
 
-Now with the service running and Postman ready to go, you can start testing.
+Now with the service running and Postman ready to go, you can start testing. You can click on any of the tests under the folder, such as GetAnagrams. You will see in the main window, the URL it will test against `http://localhost:3000/api/anagrams/dear` and the HTTP method it will use `GET`. To the right you will see a blue SEND button. The URL shows that it will point at localhost, port 3000 and the final word, "dear" is the word it is going to search for anagrams for. Clicking send should return a 200 OK status and a Json array of anagrams for the word dear. You can change "dear" to anything you want from here.
 
+### Final Thoughts
 
+Currently the app has no real data store. I could have created a simple database using something like Entity Framework Core but I chose not to due to the fact that including it would be increasing the complexity of the up and running section a bit too far. I wanted to keep this as layman as possible, not knowing the background of whoever is looking at this. 
 
-
-### Suggested Test Path
+If the app did include data-permanence, like if deleting the entire Corpus did, in fact, irretrievably delete all the contents of the Corpus, I would certainly want some sort of User-Authentication and Authorization service. 
 
 
