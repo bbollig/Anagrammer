@@ -134,6 +134,7 @@ namespace Anagram.API.Services
         {
             Dictionary<string, double> stats = new Dictionary<string, double>();
 
+            //if corpus is empty
             if (CorpusCount == 0)
             {
                 stats.Add("Count", CorpusCount);
