@@ -2,7 +2,7 @@
 
 ### Table of Contents
 1. Overview & Discussion
-3. Up and Running Guide
+2. Up and Running Guide
 4. Suggested Test Path
 
 ---
@@ -46,7 +46,23 @@ Now onto an overview of the API project structure. Inside the Anagram.API folder
   + *Angagrammer.cs* - Has two constructors, one default that looks in the root of the project file for the 'dictionary.txt' file, and another that accepts a path to an entirely different dictionary file. I used the second constructor for injecting a much smaller dictionary file for use in the Unit Testing. The Anagrammer exposes a Corpus class as property and feeds the Corpus on instantiation the dictionary file, creating the in-memory store. I won't go into minute detail of the internal methods of the class here (since it is fairly well documented with comments in the code) but I will list them in no particular order: CorpusContains, DeleteCorpus, DeleteWord, DeleteWordAndAnagrams, GetAnagrams, InsertWords, GetStats, CheckSetForAngrams, and SortWord.
 * *Classes Folder* - Where the Corpus class lives
   + *Corpus.cs* - simply wraps a List<string> object for easy manipulation. Take a filepath to the dictionary on construction. Also inherits IDisposable to use the Dispose method. This is where I originally intended to save the changes to the Corpus back the the dictionary file, after the Anagram Service is shut down and when Garbage Collection cleaned the class up. This is a feature for another day however.
+  
+### Up and Running Guide
 
+Since this is cross-platform, I've done some work to ensure that the steps to set up are as close as possible across both Mac and Windows environments. If there is a difference, I will note so at the appropriate time. 
 
+1. First, you will need to download and install VS Code and Postman, if you don't have them already.
+[https://code.visualstudio.com/download]
+[https://www.getpostman.com/downloads/]
+2. After installing VS Code, make sure that you are have installed a version of dotnet core 2.2. I'm not exactly sure which version comes with VS Code on a fresh download these days, so best to be safe and double check. If you don't have 2.2, you can install it here for Mac:
+[https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.401-macos-x64-installer]
+or here for Windows:
+[https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.2.401-windows-x64-installer]
+3. Now that we have the correct version of dotnetcore installed, we can run VS Code.
+  * Once its running go to File -> Open Folder and browse to wheverever you have the Angrammer folder stored. Click on the Anagrammer folder and click on the Select Folder button. **Once opening this folder, you may see a popup in the bottom right asking your permission to install some missing components for VS Code. Do so.**
+  * Now that the workspace folder is open, at the top menu of VS Code a little ways down from File you will see Terminal. Click Terminal -> Run New Terminal. You will see the Terminal screen pop up at the bottom of the window.
+  * On fresh Terminal, you will likely need to move into the Anagram.API folder. You can do so by typing `cd Anagrammer.API`. 
+  * Now that the terminal is in the correct location(the one with Anagram.API.csproj file) you can start the service by typing `dotnet run --urls http://0.0.0.0:3000/` This command starts the API service and ensures that it is listening over HTTP localhost on port 3000.
+4. 
 
 
