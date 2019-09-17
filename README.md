@@ -9,6 +9,8 @@
 ---
 ### Overview & Discussion
 
+This is my first attempt at making a truly cross-platform API using dotnet core. It was an interesting exercise learning how this would be gotten up and running on say, a Mac, for example.
+
 The solution consists of two projects, the first being the API itself (Anagram.API) and the second a Unit Test project that I created to help me in my developement process (Anagrammer.Tests). I should note here, the Test project focuses on the heavy lifter class of the API, where most of the functonality is located and ignores the  API Controller that exposes the endpoints. I left the endpoint testing to a tool called Postman that I find very useful for working with APIs. I chose to use Postman for this because it allows me the ability to export/import entire test suites for sharing. You will find the file to import these tests alongside the projectfolders for the API and Unit Tests, as well as this README.md (more on Postman and importing later).
 
 Now onto an overview of the API project structure. Inside the Anagram.API folder, you will find several folders and files. I will keep my discussion to only those items that are noteworthy:
